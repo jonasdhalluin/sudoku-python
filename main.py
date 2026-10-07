@@ -1,53 +1,53 @@
 
-def present_ligne(grille, ligne, nombre):
-    if nombre in grille[ligne]:
+def number_in_row(grid, row, number):
+    if number in grid[row]:
         return True
     return False
 
-def present_colonne(grille, colonne, nombre):
-    for i in grille:
-        if nombre == i[colonne]:
+def number_in_column(grid, column, number):
+    for row in grid:
+        if number == row[column]:
             return True
     return False
 
-def present_carre(grille, debut_carre, nombre):
-    for i in range(0, 3):
-        if nombre in grille[i+debut_carre[0]][debut_carre[1]:debut_carre[1]+3]:
+def number_in_box(grid, box_start, number):
+    for i in range(3):
+        if number in grid[i + box_start[0]][box_start[1]:box_start[1] + 3]:
             return True         
     return False
 
-def trouver_case_vide(grille):
-    for ligne in range(len(grille)):
-        for colonne in range(len(grille)):
-            if grille[ligne][colonne] == 0:
-                return ligne, colonne
+def find_empty_cell(grid):
+    for row in range(len(grid)):
+        for column in range(len(grid)):
+            if grid[row][column] == 0:
+                return row, column
 
-def placement_possible(grille, ligne, colonne, nombre):
-    debut_ligne = (ligne // 3) * 3
-    debut_colonne = (colonne // 3) * 3
-    if present_ligne(grille, ligne, nombre) or present_colonne(grille, colonne, nombre) or present_carre(grille, (debut_ligne, debut_colonne), nombre):
+def is_valid_placement(grid, row, column, number):
+    box_start_row = (row // 3) * 3
+    box_start_column = (column // 3) * 3
+    if (number_in_row(grid, row, number)
+            or number_in_column(grid, column, number)
+            or number_in_box(grid, (box_start_row, box_start_column), number)):
         return False
     else:
         return True
 
-def resoudre(grille):
-    position = trouver_case_vide(grille)
+def solve(grid):
+    position = find_empty_cell(grid)
     if position is None:
         return True
-    ligne, colonne = position
-    nombre = 0
-    for i in range (0, 9):
-        nombre += 1  
-        if placement_possible(grille, ligne, colonne, nombre):
-            grille[ligne][colonne] = nombre
-            if resoudre(grille):
+    row, column = position
+    for number in range(1, 10):
+        if is_valid_placement(grid, row, column, number):
+            grid[row][column] = number
+            if solve(grid):
                 return True
-            grille[ligne][colonne] = 0
+            grid[row][column] = 0
     return False
 
 
 
-grille = [
+grid = [
     [8, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 3, 6, 0, 0, 0, 0],
     [0, 7, 0, 0, 9, 0, 2, 0, 0],
@@ -58,8 +58,8 @@ grille = [
     [0, 0, 8, 5, 0, 0, 0, 1, 0],
     [0, 9, 0, 0, 0, 0, 4, 0, 0]
 ]
-resoudre(grille)
-for ligne in grille:
-    print(ligne)
+solve(grid)
+for row in grid:
+    print(row)
 
 
