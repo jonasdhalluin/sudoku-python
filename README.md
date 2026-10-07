@@ -1,6 +1,6 @@
 # Sudoku solver
 
-An English Python Sudoku solver built as a learning project.
+A Python Sudoku solver built as a learning project.
 
 **Work in progress:** a graphical user interface is planned.
 
