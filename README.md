@@ -1,9 +1,22 @@
-Sudoku solver
+# Sudoku solver
 
-Work in progress — a Python learning project.
+An English Python Sudoku solver built as a learning project.
 
-Currently implemented:
+## Current features
 
-Check whether a number appears in a row, column or 3×3 box.
+- Checks whether a number is already present in a row, column, or 3×3 box.
+- Finds empty cells.
+- Uses backtracking to solve a Sudoku grid automatically.
+- Prints the solved grid row by row.
 
-Next step: implement automatic Sudoku solving.
+## How to run
+
+Make sure Python is installed, then run:
+
+```bash
+python main.py
+```
+
+In `main.py`, `0` represents an empty cell. Replace the example `grid` with another Sudoku grid to solve it.
+
+This project is still being improved as part of my Python learning journey.
